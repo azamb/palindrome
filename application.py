@@ -1,30 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''application.py
-
-Usage:
-    application.py [--port=<port>] [--host=<host>] [--debug]
-
-Options:
-    -h, --help          Show this message and quit.
-    --port=<port>       Specify the port to bind to.
-                    [default: 8080]
-    --host=<host>       Specify the host to bind to.
-                    [default: localhost]
-    --debug             Enable debugging.
-'''
-from docopt import docopt
 from flask import Flask
 from api import create_api
+from constants import PALINDROME_DB_URI
+
+
+application = Flask(__name__)
+create_api(application)
+
+@application.before_first_request
+def config_app():
+    if not application.config.get('INITIALIZED'):
+        application.config['DEBUG'] = True
+        application.config['SECRET_KEY'] = 'AKIAJWXFTKURRFOVXDJQ'
+        application.config['SQLALCHEMY_DATABASE_URI'] = PALINDROME_DB_URI
+        application.config['INITIALIZED'] = True
 
 
 if __name__ == '__main__':
-    args = docopt(__doc__)
-    port = int(args['--port'])
-    host = args['--host']
-
-    application = Flask(__name__)
-    create_api(application)
-    application.debug = args['--debug']
-
-    application.run(host=host, port=port)
+    application.run()
