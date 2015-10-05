@@ -29,10 +29,10 @@ def connection():
 
 
 def get_messages(session):
-    messages = session.query(model.Messages).all()
+    messages = session.query(model.Messages)
     if messages:
         messages = messages.order_by(model.Messages.created_on)
-    return messages
+    return messages.all()
 
 
 def get_message(session, message_id):
@@ -42,7 +42,11 @@ def get_message(session, message_id):
 
 
 def add_message(session, msg, username, is_palindrome):
-    message = model.Messages(msg, username, is_palindrome)
+    message = model.Messages(
+        message=msg,
+        username=username,
+        is_palindrome=is_palindrome
+    )
     session.add(message)
     session.flush()
 
