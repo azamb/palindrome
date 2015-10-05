@@ -1,5 +1,5 @@
 from application import db
-from application.models import Message
+from application.model import Messages
 
 print('Creating Database')
 db.create_all()
