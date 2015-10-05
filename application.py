@@ -14,12 +14,17 @@ Options:
     --debug             Enable debugging.
 '''
 from docopt import docopt
-from application import application
+from flask import Flask
+from api import create_api
+
 
 if __name__ == '__main__':
     args = docopt(__doc__)
     port = int(args['--port'])
     host = args['--host']
+
+    application = Flask(__name__)
+    create_api(application)
     application.debug = args['--debug']
 
     application.run(host=host, port=port)

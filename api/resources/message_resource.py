@@ -1,12 +1,12 @@
 from flask.ext.restful import Resource, reqparse
-from application.external import (
+from db.external import (
     connection,
     get_messages,
     get_message,
     add_message,
     delete_message
 )
-from application import helpers
+from db import helpers
 
 
 class MessageResource(Resource):

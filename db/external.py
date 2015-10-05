@@ -2,14 +2,13 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from application import model
-#TODO import uri from config
-SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+from db import model
+from constants import PALINDROME_DB_URI
 
 
 def get_session():
     # TODO docs
-    engine = create_engine(SQLALCHEMY_DATABASE_URI)
+    engine = create_engine(PALINDROME_DB_URI)
     session_maker = sessionmaker(bind=engine)
 
     return session_maker()
@@ -31,7 +30,8 @@ def connection():
 
 def get_messages(session):
     messages = session.query(model.Messages).all()
-    messages = messages.order_by(model.Messages.created_on)
+    if messages:
+        messages = messages.order_by(model.Messages.created_on)
     return messages
 
 
