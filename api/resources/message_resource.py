@@ -8,7 +8,6 @@ from db.external import (
     add_message,
     delete_message
 )
-from db import helpers
 
 
 class IsoDateTimeField(fields.Raw):
@@ -23,6 +22,14 @@ message_fields = {
     'created_on': IsoDateTimeField,
     'is_palindrome': fields.Boolean
 }
+
+
+def is_palindrome(text):
+    # TODO docs
+    assert isinstance(text, unicode)
+    text = text.lower()
+    text = ''.join(char for char in text if char.isalpha())
+    return text == text[::-1]
 
 
 class MessageResource(Resource):
@@ -72,9 +79,10 @@ class MessageListResource(Resource):
 
         message = args['message']
         username = args['username']
-        is_palindrome = helpers.is_palindrome(message)
 
         with connection() as session:
-            msg = add_message(session, message, username, is_palindrome)
+            msg = add_message(
+                session, message, username, is_palindrome(message)
+            )
             msg = marshal(msg, message_fields)
             return msg
