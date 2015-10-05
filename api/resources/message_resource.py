@@ -1,4 +1,4 @@
-from flask.ext.restful import Resource, reqparse
+from flask.ext.restful import Resource, marshal, reqparse, fields
 
 from exceptions import MessageNotFound
 from db.external import (
@@ -11,6 +11,20 @@ from db.external import (
 from db import helpers
 
 
+class IsoDateTimeField(fields.Raw):
+    def format(self, value):
+        return value.isoformat()
+
+
+message_fields = {
+    'id': fields.Integer,
+    'message': fields.String,
+    'username': fields.String,
+    'created_on': IsoDateTimeField,
+    'is_palindrome': fields.Boolean
+}
+
+
 class MessageResource(Resource):
     def get(self, message_id):
         '''
@@ -18,10 +32,9 @@ class MessageResource(Resource):
         '''
         with connection() as session:
             message = get_message(session, message_id)
-
             if message is None:
                 raise MessageNotFound(message_id)
-            return message.to_dict()
+            return marshal(message, message_fields)
 
     def delete(self, message_id):
         '''
@@ -32,7 +45,7 @@ class MessageResource(Resource):
 
             if message is None:
                 raise MessageNotFound(message_id)
-            return message.to_dict()
+            return marshal(message, message_fields)
 
 
 class MessageListResource(Resource):
@@ -42,9 +55,11 @@ class MessageListResource(Resource):
         '''
         with connection() as session:
             messages = get_messages(session)
-            messages = [msg.to_dict() for msg in messages]
+            messages = [
+                marshal(msg, message_fields) for msg in messages
+            ]
 
-            return {'messages': messages}
+            return messages
 
     def post(self):
         '''
@@ -61,6 +76,5 @@ class MessageListResource(Resource):
 
         with connection() as session:
             msg = add_message(session, message, username, is_palindrome)
-            return msg.to_dict()
-
-__all__ = ['MessageResource', 'MessageListResource']
+            msg = marshal(msg, message_fields)
+            return msg
