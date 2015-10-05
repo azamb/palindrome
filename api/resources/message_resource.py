@@ -1,4 +1,6 @@
 from flask.ext.restful import Resource, reqparse
+
+from exceptions import MessageNotFound
 from db.external import (
     connection,
     get_messages,
@@ -16,6 +18,9 @@ class MessageResource(Resource):
         '''
         with connection() as session:
             message = get_message(session, message_id)
+
+            if message is None:
+                raise MessageNotFound(message_id)
             return message.to_dict()
 
     def delete(self, message_id):
@@ -24,6 +29,9 @@ class MessageResource(Resource):
         '''
         with connection() as session:
             message = delete_message(session, message_id)
+
+            if message is None:
+                raise MessageNotFound(message_id)
             return message.to_dict()
 
 
