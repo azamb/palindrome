@@ -56,7 +56,7 @@ def add_message(session, msg, username, is_palindrome):
 def delete_message(session, message_id):
     message = session.query(model.Messages).filter(
         model.Messages.id == message_id
-    )
+    ).first()
     if message:
         session.delete(message)
         session.flush()
