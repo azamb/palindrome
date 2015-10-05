@@ -2,7 +2,6 @@ from flask.ext import restful
 from api.resources import MessageResource, MessageListResource
 
 
-NAME = 'pal'
 VERSION = 1
 
 
@@ -16,8 +15,7 @@ def create_api(app):
         :returns: The palindrome API
         :rtype: flask_restful.Api
     '''
-    api_prefix = '/{0}/v{1}'.format(NAME, VERSION)
-    api = restful.Api(app, prefix=api_prefix)
+    api = restful.Api(app, prefix='/v{0}'.format(VERSION))
 
     api.add_resource(MessageListResource, '/messages')
     api.add_resource(
