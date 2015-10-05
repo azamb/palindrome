@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from application import db
+from sqlalchemy import Column, Integer, DateTime, String, Text, Boolean, func
 
 Base = declarative_base()
 
@@ -19,8 +19,8 @@ class Messages(Serialize):
     # TODO docs
     __tablename__ = 'messages'
 
-    id = db.Column(db.Integer, primary_key=True)
-    message = db.Column(db.Text, unique=False, nullable=False)
-    username = db.Column(db.String(50), unique=False, nullable=False)
-    created_on = db.Column(db.DateTime, default=db.func.now())
-    is_palindrome = db.Column(db.Boolean, nullable=False)
+    id = Column(Integer, primary_key=True)
+    message = Column(Text, unique=False, nullable=False)
+    username = Column(String(50), unique=False, nullable=False)
+    created_on = Column(DateTime, default=func.now())
+    is_palindrome = Column(Boolean, nullable=False)
