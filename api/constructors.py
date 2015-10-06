@@ -1,6 +1,6 @@
 from flask.ext import restful
 from api.resources import MessageResource, MessageListResource
-
+from error_handler import api_error_handler
 
 VERSION = 1
 
@@ -16,7 +16,7 @@ def create_api(app):
         :rtype: flask_restful.Api
     '''
     api = restful.Api(app, prefix='/v{0}'.format(VERSION))
-
+    api.decorators = [api_error_handler]
     api.add_resource(MessageListResource, '/messages')
     api.add_resource(
         MessageResource,
