@@ -1,0 +1,42 @@
+FORMAT: 1A
+
+# Palindrome
+
+## Introduction
+
+## Architecture
+
+
+# Group Messages
+Group of all messages-related resources.
+
+## Message [/v1/message/message_id]
+
+### Get a Message [GET]
+This action retrieves message with `message_id`. If found in the database, it returns a JSON representation of the message. Otherwise a 404 is returned.
+
++ Response 200
+
+    + Body
+        {
+            "created_on": "2015-10-06T14:13:25",
+            "id": 5,
+            "is_palindrome": true,
+            "message": "Step on no pets",
+            "username": "batman"
+        }
+
++ Response 404
+
+    + Body
+
+        Message with id: `message_id` was not found.
+
+### Delete a Message [DELETE]
+This action deletes
+
++ Request (text/plain)
+
+        All your base are belong to us.
+
++ Response 204
