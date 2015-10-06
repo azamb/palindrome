@@ -1,8 +1,6 @@
 from functools import wraps
 from werkzeug.exceptions import HTTPException
-from api.resources.exceptions import (
-    MessageNotFound
-)
+from api.exceptions import MessageNotFound
 
 
 def api_error_handler(func):

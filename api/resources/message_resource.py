@@ -1,6 +1,6 @@
 from flask.ext.restful import Resource, marshal, reqparse, fields
 
-from exceptions import MessageNotFound
+from api.exceptions import MessageNotFound
 from db.external import (
     connection,
     get_messages,
