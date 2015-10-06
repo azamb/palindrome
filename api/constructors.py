@@ -18,10 +18,6 @@ def create_api(app):
     api = restful.Api(app, prefix='/v{0}'.format(VERSION))
     api.decorators = [api_error_handler]
     api.add_resource(MessageListResource, '/messages')
-    api.add_resource(
-        MessageResource,
-        '/messages/<message_id>',
-        endpoint='messages'
-    )
+    api.add_resource(MessageResource, '/messages/<message_id>')
 
     return api
