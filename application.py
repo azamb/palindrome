@@ -12,12 +12,12 @@ create_api(application)
 @application.before_first_request
 def config_app():
     if not application.config.get('INITIALIZED'):
-        # TODO remove debug statement.
-        application.config['DEBUG'] = True
         application.config['SECRET_KEY'] = SECRET_KEY
         application.config['SQLALCHEMY_DATABASE_URI'] = PALINDROME_DB_URI
         application.config['INITIALIZED'] = True
 
 
 if __name__ == '__main__':
+    # TODO remove debug statement.
+    application.debug = True
     application.run()
