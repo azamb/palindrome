@@ -8,6 +8,10 @@ class Serialize(Base):
     __abstract__ = True
 
     def to_dict(self):
+        '''
+            Helper method for serializing a database object
+            into a dictionary.
+        '''
         return {
             k: v
             for k, v in self.__dict__.iteritems()
@@ -16,7 +20,6 @@ class Serialize(Base):
 
 
 class Messages(Serialize):
-    # TODO docs
     __tablename__ = 'messages'
 
     id = Column(Integer, primary_key=True)

@@ -6,18 +6,16 @@ from db import model
 from constants import PALINDROME_DB_URI
 
 
-def get_session():
-    # TODO docs
-    engine = create_engine(PALINDROME_DB_URI)
-    session_maker = sessionmaker(bind=engine)
-
-    return session_maker()
-
-
 @contextmanager
 def connection():
-    # TODO docs
-    session = get_session()
+    '''
+        Connection provides a scope for performing
+        operations on the application's database.
+    '''
+    engine = create_engine(PALINDROME_DB_URI)
+    session_maker = sessionmaker(bind=engine)
+    session = session_maker()
+
     try:
         yield session
         session.commit()

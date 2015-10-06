@@ -25,7 +25,12 @@ message_fields = {
 
 
 def is_palindrome(text):
-    #TODO docs
+    '''
+    Params:
+        text (unicode)
+    Returns:
+        bool: True if text is a palindrome, False otherwise.
+    '''
     assert isinstance(text, unicode)
     text = text.lower()
     text = ''.join(char for char in text if char.isalpha())
@@ -34,8 +39,11 @@ def is_palindrome(text):
 
 class MessageResource(Resource):
     def get(self, message_id):
-        '''
-            Get a single message
+        '''Get a single message.
+        Params:
+            message_id (unicode)
+        Return:
+            JSON: requested message
         '''
         with connection() as session:
             message = get_message(session, message_id)
@@ -44,8 +52,11 @@ class MessageResource(Resource):
             return marshal(message, message_fields)
 
     def delete(self, message_id):
-        '''
-            Delete a single message
+        '''Delete a single message.
+        Params:
+            message_id (unicode)
+        Returns:
+            JSON: Deleted message
         '''
         with connection() as session:
             message = delete_message(session, message_id)
@@ -57,8 +68,9 @@ class MessageResource(Resource):
 
 class MessageListResource(Resource):
     def get(self):
-        '''
-            List all messages.
+        '''List all messages.
+        Returns:
+            List: Message(s)
         '''
         with connection() as session:
             messages = get_messages(session)
@@ -69,8 +81,9 @@ class MessageListResource(Resource):
             return messages
 
     def post(self):
-        '''
-            Add a new message
+        '''Add a new message
+        Returns:
+            JSON: New mesage
         '''
         rp = reqparse.RequestParser()
         rp.add_argument('message', type=unicode, required=True)
