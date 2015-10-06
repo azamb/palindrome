@@ -25,7 +25,7 @@ message_fields = {
 
 
 def is_palindrome(text):
-    # TODO docs
+    #TODO docs
     assert isinstance(text, unicode)
     text = text.lower()
     text = ''.join(char for char in text if char.isalpha())
