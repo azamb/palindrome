@@ -3,7 +3,7 @@ FORMAT: 1A
 # Palindrome API
 
 ## Introduction
-This document is meant to give you a high level overview of the palindrome application. Please look at the table of contents for more details.
+This document is meant to give you a high level overview of the palindrome application. Please look at the table of contents for more details. You can access the app's documentation and api here: http://palindrome.elasticbeanstalk.com/
 
 ## High-level Architecture
 This section is meant to give you an overview of how this application is implemented. Below you will find the app's file structure along with a table describing its main components.
