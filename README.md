@@ -49,9 +49,7 @@ Name | Description
         $ eb init
         $ eb create
 
-More information on deploying Flask application with Elastic Beanstalk can be found here:
-http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html
-
+5. More information on deploying Flask application with Elastic Beanstalk can be found here: (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html)
 
 
 # Group API Blueprint
