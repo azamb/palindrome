@@ -34,7 +34,9 @@ def is_palindrome(text):
     assert isinstance(text, unicode)
     text = text.lower()
     text = ''.join(char for char in text if char.isalpha())
-    return text == text[::-1]
+    if text:
+        return text == text[::-1]
+    return False
 
 
 class MessageResource(Resource):
