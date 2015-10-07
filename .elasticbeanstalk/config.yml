@@ -1,6 +1,6 @@
 branch-defaults:
-  debug:
-    environment: null
+  master:
+    environment: palindrome
   dev:
     environment: palindrome-dev
 global:
